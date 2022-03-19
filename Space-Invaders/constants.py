@@ -30,8 +30,8 @@ FONT_LARGE = 48
 EXPLOSION_SOUND = ROOT + "/assets/NewSounds/explosion.wav"
 HURT_SOUND = ROOT + "/assets/NewSounds/hithurt.wav"
 LASER_SOUND = ROOT + "/assets/NewSounds/laserShoot.wav"
-PICKUP_SOUND = ROOT + "/assets/NewSounds/pickup.wav"
-WELCOME_SOUND = ROOT + "/assets/NewSounds/start.wav"
+PICKUP_SOUND = ROOT + "/assets/NewSounds/laserShoot.wav"
+WELCOME_SOUND = ROOT + "/assets/sounds/start.wav"
 OVER_SOUND = ROOT + "/assets/sounds/over.wav"
 
 # TEXT
