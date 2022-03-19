@@ -151,7 +151,7 @@ class Experience(MovingActor):
         self.size = 2
         self.alive = True
     def advance(self):
-        self.center.x += -3 * ((self.center.x - window.ship.center.x)/window.ship.center.x) 
+        self.center.x += -3 * ((self.center.x - window.ship.center.x)/(SCREEN_WIDTH/2)) 
         self.center.y += -3 * ((self.center.y - window.ship.center.y)/window.ship.center.y) 
 
         #self.center.x += -1 * (self.center.x/window.ship.center.x) 
