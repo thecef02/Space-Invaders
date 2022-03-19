@@ -5,7 +5,7 @@ from game.casting.point import Point
 
 
 class Ball(Actor):
-    """A solid, spherical object that is bounced around in the game."""
+    """A solid, spherical object that is explosiond around in the game."""
     
     def __init__(self, body, image, debug = False):
         """Constructs a new Ball.
@@ -19,8 +19,8 @@ class Ball(Actor):
         self._body = body
         self._image = image
 
-    def bounce_x(self):
-        """Bounces the ball in the x direction."""
+    def explosion_x(self):
+        """EXPLOSIONs the ball in the x direction."""
         velocity = self._body.get_velocity()
         rn = random.uniform(0.9, 1.1)
         vx = velocity.get_x() * rn * -1
@@ -28,8 +28,8 @@ class Ball(Actor):
         velocity = Point(vx, vy)
         self._body.set_velocity(velocity)
 
-    def bounce_y(self):
-        """Bounces the ball in the y direction."""
+    def explosion_y(self):
+        """EXPLOSIONs the ball in the y direction."""
         velocity = self._body.get_velocity()
         rn = random.uniform(0.9, 1.1)
         vx = velocity.get_x()
