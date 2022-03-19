@@ -106,7 +106,7 @@ class Enemy(MovingActor):
         self.radius = BIG_ENEMY_RADIUS
         self.alive = True
         self.size = 3
-        self.image = "images/enemy.png"
+        self.image = "Space-Invaders/images/enemy.png"
         self.texture = arcade.load_texture(self.image)
         self.sound = arcade.Sound(EXPLOSION_SOUND)
         
@@ -137,7 +137,7 @@ class MediumEnemy(Enemy):
         self.angle = MEDIUM_ENEMY_SPIN
         self.rotateSpeed = MEDIUM_ENEMY_SPIN
         self.radius = MEDIUM_ENEMY_RADIUS
-        self.image = "images/bullet.png"
+        self.image = "Space-Invaders/images/bullet.png"
         self.texture = arcade.load_texture(self.image)
         self.size = 2
     def split(self):
@@ -158,7 +158,7 @@ class SmallEnemy(Enemy):
         self.angle = SMALL_ENEMY_SPIN
         self.rotateSpeed = SMALL_ENEMY_SPIN
         self.radius = SMALL_ENEMY_RADIUS
-        self.image = "images/bullet.png"
+        self.image = "Space-Invaders/images/bullet.png"
         self.texture = arcade.load_texture(self.image)
         self.size = 1
     def split(self):
@@ -181,7 +181,7 @@ class SpaceShip(MovingActor):
         self.isShooting = True
         self.radius = SHIP_RADIUS
         self.lives = SHIP_LIVES
-        self.image = "images/playerShip.png"
+        self.image = "Space-Invaders/images/playerShip.png"
         self.texture = arcade.load_texture(self.image)
 
     def draw(self):
@@ -203,7 +203,7 @@ class SpaceShip(MovingActor):
         self.center.y -= self.moveSpeed/2 
      
     def death(self):
-        self.image = "images/playerShip.png"
+        self.image = "Space-Invaders/images/playerShip.png"
         self.texture = arcade.load_texture(self.image)
         
         
@@ -219,7 +219,7 @@ class Bullet(MovingActor):
         self.radius = BULLET_RADIUS
         self.rotateSpeed = SHIP_SPEED
         self.angle = BIG_ENEMY_SPIN
-        self.image = "images/laser.png"
+        self.image = "Space-Invaders/images/laser.png"
         self.sound = arcade.Sound(LASER_SOUND)
         self.texture = arcade.load_texture(self.image)
         self.alive = True
