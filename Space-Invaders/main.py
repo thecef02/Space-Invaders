@@ -24,6 +24,7 @@ SHIP_THRUST_AMOUNT = 0.25/25
 SHIP_RADIUS = 30
 SHIP_LIVES = 500
 SHIP_SCALE = .8
+START_POINTS = 0
 
 ROOT = os.path.dirname(sys.modules['__main__'].__file__)
 EXPLOSION_SOUND = ROOT + "/sounds/explosion.wav" 
@@ -178,6 +179,7 @@ class SpaceShip(MovingActor):
         self.isShooting = True
         self.radius = SHIP_RADIUS
         self.lives = SHIP_LIVES
+        self.points = START_POINTS
         self.image = "Space-Invaders/images/playerShip.png"
         self.texture = arcade.load_texture(self.image)
 
@@ -305,6 +307,8 @@ class Game(arcade.Window):
             experience.draw()
 
         self.draw_lives()
+        self.draw_points()
+
         if self.ship.alive == False:
             self.game_over()
 
@@ -343,6 +347,12 @@ class Game(arcade.Window):
         lives_x = 10
         lives_y = SCREEN_HEIGHT - 40
         arcade.draw_text(lives_text, start_x=lives_x, start_y=lives_y, font_size=30, color=arcade.color.WHITE)
+    
+    def draw_points(self):
+        points_text = "Points: {}".format(self.ship.points)
+        points_x = SCREEN_WIDTH - 200
+        points_y = SCREEN_HEIGHT - 40
+        arcade.draw_text(points_text, start_x=points_x, start_y=points_y, font_size=30, color=arcade.color.WHITE)
 
     def game_over(self):
         """
@@ -433,6 +443,7 @@ class Game(arcade.Window):
             if (abs(experience.center.x - self.ship.center.x) < too_close and
                     abs(experience.center.y - self.ship.center.y) < too_close):
                 experience.alive = False
+                self.ship.points += 1
                           
                         # We will wait to remove the dead objects until after we
                         # finish going through the list
