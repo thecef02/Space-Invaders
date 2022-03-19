@@ -1,9 +1,11 @@
 
+from turtle import Screen
 import arcade
 import math
 import random
 from abc import ABC
 import pathlib, os, sys
+
 
 
 from arcade.color import BLUE, RED
@@ -30,7 +32,7 @@ START_SOUND = ROOT + "/sounds/start.wav"
 HURT_SOUND = ROOT + "/sounds/hitHurt.wav"
 PICKUP_SOUND = ROOT + "/sounds/pickup.wav"
 
-INITIAL_ENEMY_COUNT = 5
+INITIAL_ENEMY_COUNT = 10
 
 BIG_ENEMY_SPIN = 0
 BIG_ENEMY_SPEED = 1.5
@@ -42,7 +44,7 @@ MEDIUM_ENEMY_RADIUS = 5
 SMALL_ENEMY_SPIN = 5
 SMALL_ENEMY_RADIUS = 2
 
-ENEMY_AMOUNT = 5
+ENEMY_AMOUNT = 4 
 
 """
 Creates Point class, used to keep track of location
@@ -97,8 +99,8 @@ currently set up as the large asteroid
 class Enemy(MovingActor):
     def __init__(self):
         super().__init__()
-        self.center.x = random.randint(1, 200)
-        self.center.y = random.randint(1, 600)
+        self.center.x = random.randint(1, SCREEN_WIDTH)
+        self.center.y = SCREEN_HEIGHT
         self.velocity.dx = random.uniform(-1 * BIG_ENEMY_SPEED, BIG_ENEMY_SPEED)
         self.velocity.dy = random.uniform(-1 * BIG_ENEMY_SPEED, -2 * BIG_ENEMY_SPEED)
         self.angle = BIG_ENEMY_SPIN
@@ -113,56 +115,51 @@ class Enemy(MovingActor):
     def draw(self):
         arcade.draw_texture_rectangle(self.center.x, self.center.y, self.texture.width/2, self.texture.height/2, self.texture, self.angle, 255)
 
+
+
     def split(self):
         self.alive = False
-        medEnemy1 = MediumEnemy(self.center.x, self.center.y)
-        medEnemy2 = MediumEnemy(self.center.x, self.center.y)
-        smallEnemy1 = SmallEnemy(self.center.x, self.center.y)
+        xp1 = Experience(self.center.x, self.center.y)
+        xp2 = Experience(self.center.x, self.center.y)
+        #smallEnemy1 = SmallEnemy(self.center.x, self.center.y)
         self.sound.play(0.5, 1)
-        window.enemies.append(medEnemy1)
-        window.enemies.append(medEnemy2)
-        window.enemies.append(smallEnemy1)
+        window.experience.append(xp1)
+        window.experience.append(xp2)
+        #window.enemies.append(smallEnemy1)
     
 
 
 
 """
-Medium Enemy
+Experience
 """
-class MediumEnemy(Enemy):
+class Experience(MovingActor):
     def __init__(self, x, y):
         super().__init__()
         self.center.x = x
         self.center.y = y
+        self.velocity.dx = math.sin(window.ship.center.x/self.center.x)
+        self.velocity.dy = math.sin(window.ship.center.y/self.center.y)
         self.angle = MEDIUM_ENEMY_SPIN
-        self.rotateSpeed = MEDIUM_ENEMY_SPIN
+        self.rotateSpeed = 0
         self.radius = MEDIUM_ENEMY_RADIUS
-        self.image = "Space-Invaders/images/bullet.png"
+        self.radius = BIG_ENEMY_RADIUS
+        self.image = "Space-Invaders/images/xp.png"
         self.texture = arcade.load_texture(self.image)
         self.size = 2
-    def split(self):
-        self.alive = False
-        smallEnemy1 = SmallEnemy(self.center.x, self.center.y)
-        smallEnemy2 = SmallEnemy(self.center.x, self.center.y)
-        window.enemies.append(smallEnemy1)
-        window.enemies.append(smallEnemy2)
+        self.alive = True
+    def advance(self):
+        self.center.x += -3 * ((self.center.x - window.ship.center.x)/window.ship.center.x) 
+        self.center.y += -3 * ((self.center.y - window.ship.center.y)/window.ship.center.y) 
 
-"""
-Small Enemy
-"""
-class SmallEnemy(Enemy):
-    def __init__(self, x, y):
-        super().__init__()
-        self.center.x = x
-        self.center.y = y
-        self.angle = SMALL_ENEMY_SPIN
-        self.rotateSpeed = SMALL_ENEMY_SPIN
-        self.radius = SMALL_ENEMY_RADIUS
-        self.image = "Space-Invaders/images/bullet.png"
-        self.texture = arcade.load_texture(self.image)
-        self.size = 1
+        #self.center.x += -1 * (self.center.x/window.ship.center.x) 
+        #self.center.y += -1 * (self.center.y/window.ship.center.y)     
+    def draw(self):
+        arcade.draw_texture_rectangle(self.center.x, self.center.y, self.texture.width/2, self.texture.height/2, self.texture, self.angle, 255)
     def split(self):
         self.alive = False
+     
+
 
         
              
@@ -205,6 +202,19 @@ class SpaceShip(MovingActor):
     def death(self):
         self.image = "Space-Invaders/images/playerShip.png"
         self.texture = arcade.load_texture(self.image)
+
+    def is_off_screen(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        is_off_screen = False
+        #Creates Screen Bounds
+        if self.center.x > SCREEN_WIDTH:
+            self.center.x = SCREEN_WIDTH -1
+        elif self.center.x < 1:
+            self.center.x = 1
+        elif self.center.y > SCREEN_HEIGHT:
+            self.center.y = SCREEN_HEIGHT - 1
+        elif self.center.y < 1:
+            self.center.y = 1
+        return is_off_screen
         
         
 
@@ -265,7 +275,9 @@ class Game(arcade.Window):
         self.ship = SpaceShip()
         self.bullets = []
         self.enemies = []
-        self.create_enemy()
+        self.experience = []
+
+        
         arcade.Sound(START_SOUND).play(0.5, 1)
 
 
@@ -288,6 +300,10 @@ class Game(arcade.Window):
 
         for enemy in self.enemies:
             enemy.draw()
+
+        for experience in self.experience:
+            experience.draw()
+
         self.draw_lives()
         if self.ship.alive == False:
             self.game_over()
@@ -301,6 +317,7 @@ class Game(arcade.Window):
         self.check_collisions()
         self.check_off_screen()
         self.cleanup()
+        self.create_enemy()
         
         
         # TODO: Tell everything to advance or move forward one step in time
@@ -310,6 +327,9 @@ class Game(arcade.Window):
 
         for enemy in self.enemies:
             enemy.advance()
+
+        for experience in self.experience:
+            experience.advance()
         
         
             self.ship.advance()
@@ -367,6 +387,9 @@ class Game(arcade.Window):
 
         for enemy in self.enemies:
             enemy.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
+
+        for experience in self.experience:
+            experience.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
             
         self.ship.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
 
@@ -402,6 +425,14 @@ class Game(arcade.Window):
                 if self.ship.lives <= 0:
                     self.ship.alive = False
                     
+
+        for experience in self.experience:
+            
+            too_close = experience.radius + self.ship.radius
+
+            if (abs(experience.center.x - self.ship.center.x) < too_close and
+                    abs(experience.center.y - self.ship.center.y) < too_close):
+                experience.alive = False
                           
                         # We will wait to remove the dead objects until after we
                         # finish going through the list
@@ -417,19 +448,17 @@ class Game(arcade.Window):
         for enemy in self.enemies:
             if enemy.alive == False:
                 self.enemies.remove(enemy)
+        for experience in self.experience:
+            if experience.alive == False:
+                self.experience.remove(experience)
         if self.ship.alive == False:
             self.ship.death()
       
                 
 
     def create_enemy(self):
-        """
-        Creates 5 initial enemys of large size
-        :return:
-        """
        
-        
-        while len(self.enemies) < ENEMY_AMOUNT:   
+        while len(self.enemies) < ENEMY_AMOUNT:      
             enemy = Enemy()
             self.enemies.append(enemy)
         
@@ -468,4 +497,5 @@ class Game(arcade.Window):
 
 # Creates the game and starts it going
 window = Game(SCREEN_WIDTH, SCREEN_HEIGHT)
+
 arcade.run()
