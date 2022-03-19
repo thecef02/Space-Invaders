@@ -1,4 +1,5 @@
 
+from pickle import TRUE
 from turtle import Screen
 import arcade
 import math
@@ -32,6 +33,7 @@ LASER_SOUND = ROOT + "/sounds/laserShoot.wav"
 START_SOUND = ROOT + "/sounds/start.wav"
 HURT_SOUND = ROOT + "/sounds/hitHurt.wav"
 PICKUP_SOUND = ROOT + "/sounds/pickup.wav"
+MUSIC = ROOT + "/sounds/ai_song.wav"
 
 INITIAL_ENEMY_COUNT = 10
 
@@ -209,8 +211,8 @@ class SpaceShip(MovingActor):
         #Creates Screen Bounds
         if self.center.x > SCREEN_WIDTH:
             self.center.x = SCREEN_WIDTH -1
-        elif self.center.x < 1:
-            self.center.x = 1
+        elif self.center.x < 5:
+            self.center.x = 5
         elif self.center.y > SCREEN_HEIGHT:
             self.center.y = SCREEN_HEIGHT - 1
         elif self.center.y < 1:
@@ -287,9 +289,11 @@ class Game(arcade.Window):
         self.bullets = []
         self.enemies = []
         self.experience = []
+        
 
         
-        arcade.Sound(START_SOUND).play(0.5, 1)
+        arcade.Sound(START_SOUND).play(0.5, 0)
+        arcade.Sound(MUSIC).play(.5, 0, True)
 
 
         # TODO: declare anything here you need the game class to track
