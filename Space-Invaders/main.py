@@ -121,11 +121,9 @@ class Enemy(MovingActor):
     def split(self):
         self.alive = False
         xp1 = Experience(self.center.x, self.center.y)
-        xp2 = Experience(self.center.x, self.center.y)
         #smallEnemy1 = SmallEnemy(self.center.x, self.center.y)
         self.sound.play(0.5, 1)
         window.experience.append(xp1)
-        window.experience.append(xp2)
         #window.enemies.append(smallEnemy1)
     
 
@@ -147,6 +145,7 @@ class Experience(MovingActor):
         self.radius = BIG_ENEMY_RADIUS
         self.image = "Space-Invaders/images/xp.png"
         self.texture = arcade.load_texture(self.image)
+        self.sound = arcade.Sound(PICKUP_SOUND)
         self.size = 2
         self.alive = True
     def advance(self):
@@ -252,6 +251,16 @@ class Bullet(MovingActor):
         self.time += 1
         if self.time >= BULLET_LIFE:
             self.alive = False
+
+    def is_off_screen(self, SCREEN_WIDTH, SCREEN_HEIGHT):
+        is_off_screen = False
+        
+        #Creates Screen Wrapping effect
+        if self.center.x > SCREEN_WIDTH:
+            self.center.x = 0
+        elif self.center.x < 0:
+            self.center.x = SCREEN_WIDTH
+        return is_off_screen
    
         
 
@@ -444,6 +453,7 @@ class Game(arcade.Window):
                     abs(experience.center.y - self.ship.center.y) < too_close):
                 experience.alive = False
                 self.ship.points += 1
+                experience.sound.play(0.05, 0.01)
                           
                         # We will wait to remove the dead objects until after we
                         # finish going through the list
