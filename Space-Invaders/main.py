@@ -40,6 +40,7 @@ INITIAL_ENEMY_COUNT = 10
 BIG_ENEMY_SPIN = 0
 BIG_ENEMY_SPEED = 1.5
 BIG_ENEMY_RADIUS = 15
+ENEMY_IMAGE_1 = "Space-Invaders/images/enemy.png"
 
 MEDIUM_ENEMY_SPIN = -2
 MEDIUM_ENEMY_RADIUS = 5
@@ -47,7 +48,7 @@ MEDIUM_ENEMY_RADIUS = 5
 SMALL_ENEMY_SPIN = 5
 SMALL_ENEMY_RADIUS = 2
 
-ENEMY_AMOUNT = 4 
+ENEMY_AMOUNT = 2 
 
 """
 Creates Point class, used to keep track of location
@@ -111,7 +112,7 @@ class Enemy(MovingActor):
         self.radius = BIG_ENEMY_RADIUS
         self.alive = True
         self.size = 3
-        self.image = "Space-Invaders/images/enemy.png"
+        self.image = ENEMY_IMAGE_1
         self.texture = arcade.load_texture(self.image)
         self.sound = arcade.Sound(EXPLOSION_SOUND)
         
@@ -245,7 +246,7 @@ class Bullet(MovingActor):
         self.angle = angle + 90
         self.velocity.dy = math.sin(math.radians(self.angle)) * (dy + BULLET_SPEED)
         self.velocity.dx = math.cos(math.radians(self.angle)) * (dx + BULLET_SPEED)
-        self.sound.play(0.5, 1)
+        self.sound.play(0.2, 0)
         
     def advance(self):
         self.center.y += self.velocity.dy
@@ -289,7 +290,14 @@ class Game(arcade.Window):
         self.bullets = []
         self.enemies = []
         self.experience = []
-        
+        self.enemyMax = ENEMY_AMOUNT
+
+        #Looking into animation
+        #self.player_list = arcade.SpriteList()
+        #self.player_sprite = arcade.Sprite(ENEMY_IMAGE_1, 1)
+        #self.player_sprite.center_x = 50
+        #self.player_sprite.center_y = 50
+        #self.player_list.append(self.player_sprite)
 
         
         arcade.Sound(START_SOUND).play(0.5, 0)
@@ -381,19 +389,26 @@ class Game(arcade.Window):
         This function checks for keys that are being held down.
         You will need to put your own method calls in here.
         """
-        if arcade.key.LEFT in self.held_keys:
+        if arcade.key.LEFT in self.held_keys or arcade.key.A in self.held_keys:
             self.ship.goLeft()
             
 
-        if arcade.key.RIGHT in self.held_keys:
+        if arcade.key.RIGHT in self.held_keys or arcade.key.D in self.held_keys:
             self.ship.goRight()
             
 
-        if arcade.key.UP in self.held_keys:
+        if arcade.key.UP in self.held_keys or arcade.key.W in self.held_keys:
             self.ship.goForward()
 
-        if arcade.key.DOWN in self.held_keys:
+        if arcade.key.DOWN in self.held_keys or arcade.key.S in self.held_keys:
             self.ship.goBack()
+
+    
+        
+
+
+        
+        
 
         # Machine gun mode...
         #if arcade.key.SPACE in self.held_keys:
@@ -458,6 +473,8 @@ class Game(arcade.Window):
                 experience.alive = False
                 self.ship.points += 1
                 experience.sound.play(0.05, 0.01)
+                if(self.ship.points % 10 == 0):
+                    self.enemyMax += 1
                           
                         # We will wait to remove the dead objects until after we
                         # finish going through the list
@@ -483,7 +500,7 @@ class Game(arcade.Window):
 
     def create_enemy(self):
        
-        while len(self.enemies) < ENEMY_AMOUNT:      
+        while len(self.enemies) < self.enemyMax:      
             enemy = Enemy()
             self.enemies.append(enemy)
         
@@ -498,17 +515,17 @@ class Game(arcade.Window):
 
             if key == arcade.key.SPACE:
                 bullet = Bullet(self.ship.center.x, self.ship.center.y)
-                bullet2 = Bullet(self.ship.center.x, self.ship.center.y - 10)
-                bullet3 = Bullet(self.ship.center.x, self.ship.center.y - 10)
+                #bullet2 = Bullet(self.ship.center.x, self.ship.center.y - 10)
+                #bullet3 = Bullet(self.ship.center.x, self.ship.center.y - 10)
             
                 bullet.fire(self.ship.angle, self.ship.velocity.dx, self.ship.velocity.dy)
-                bullet2.fire(self.ship.angle - 5, self.ship.velocity.dx, self.ship.velocity.dy)
-                bullet3.fire(self.ship.angle + 5, self.ship.velocity.dx, self.ship.velocity.dy)
+                #bullet2.fire(-5, self.ship.velocity.dx, self.ship.velocity.dy)
+                #bullet3.fire( 5, self.ship.velocity.dx, self.ship.velocity.dy)
                 
 
                 self.bullets.append(bullet)
-                self.bullets.append(bullet2)
-                self.bullets.append(bullet3)
+                #self.bullets.append(bullet2)
+                #self.bullets.append(bullet3)
                 
                 pass
 
