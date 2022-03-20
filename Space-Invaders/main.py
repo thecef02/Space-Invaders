@@ -23,7 +23,7 @@ SHIP_SPEED = 8
 #Modifying ship for easier control
 SHIP_THRUST_AMOUNT = 0.25/25
 SHIP_RADIUS = 30
-SHIP_LIVES = 500
+SHIP_LIVES = 1
 SHIP_SCALE = .8
 START_POINTS = 0
 
@@ -41,6 +41,7 @@ BIG_ENEMY_SPIN = 0
 BIG_ENEMY_SPEED = 1.5
 BIG_ENEMY_RADIUS = 15
 ENEMY_IMAGE_1 = "Space-Invaders/images/enemy.png"
+ENEMY_IMAGE_2 = "Space-Invaders/images/enemy2.png"
 
 MEDIUM_ENEMY_SPIN = -2
 MEDIUM_ENEMY_RADIUS = 5
@@ -128,6 +129,14 @@ class Enemy(MovingActor):
         self.sound.play(0.5, 1)
         window.experience.append(xp1)
         #window.enemies.append(smallEnemy1)
+
+class Enemy2(Enemy):
+    def __init__(self):
+        super().__init__()
+        self.velocity.dx = random.uniform(-6 * BIG_ENEMY_SPEED, 6* BIG_ENEMY_SPEED)
+        self.velocity.dy = random.uniform(-1.5 * BIG_ENEMY_SPEED, -3 * BIG_ENEMY_SPEED)
+        self.image = ENEMY_IMAGE_2
+        self.texture = arcade.load_texture(self.image)
     
 
 
@@ -500,8 +509,12 @@ class Game(arcade.Window):
 
     def create_enemy(self):
        
-        while len(self.enemies) < self.enemyMax:      
-            enemy = Enemy()
+        while len(self.enemies) < self.enemyMax:
+            x = random.randint(1, 2)
+            if x == 1:      
+                enemy = Enemy()
+            else:
+                enemy = Enemy2()
             self.enemies.append(enemy)
         
 
@@ -515,18 +528,25 @@ class Game(arcade.Window):
 
             if key == arcade.key.SPACE:
                 bullet = Bullet(self.ship.center.x, self.ship.center.y)
-                #bullet2 = Bullet(self.ship.center.x, self.ship.center.y - 10)
-                #bullet3 = Bullet(self.ship.center.x, self.ship.center.y - 10)
+                bullet2 = Bullet(self.ship.center.x, self.ship.center.y - 10)
+                bullet3 = Bullet(self.ship.center.x, self.ship.center.y - 10)
             
                 bullet.fire(self.ship.angle, self.ship.velocity.dx, self.ship.velocity.dy)
-                #bullet2.fire(-5, self.ship.velocity.dx, self.ship.velocity.dy)
-                #bullet3.fire( 5, self.ship.velocity.dx, self.ship.velocity.dy)
+                bullet2.fire(-5, self.ship.velocity.dx, self.ship.velocity.dy)
+                bullet3.fire( 5, self.ship.velocity.dx, self.ship.velocity.dy)
+                
+                if self.ship.points < 50:
+                    self.bullets.append(bullet)
+                elif self.ship.points >= 50 and self.ship.points < 100:
+                    self.bullets.append(bullet2)
+                    self.bullets.append(bullet3)
+                elif self.ship.points >= 100:
+                    self.bullets.append(bullet)
+                    self.bullets.append(bullet2)
+                    self.bullets.append(bullet3)
                 
 
-                self.bullets.append(bullet)
-                #self.bullets.append(bullet2)
-                #self.bullets.append(bullet3)
-                
+
                 pass
 
     def on_key_release(self, key: int, modifiers: int):
