@@ -6,9 +6,6 @@ import math
 import random
 from abc import ABC
 import pathlib, os, sys
-
-
-
 from arcade.color import BLUE, RED
 
 
@@ -40,8 +37,8 @@ INITIAL_ENEMY_COUNT = 10
 BIG_ENEMY_SPIN = 0
 BIG_ENEMY_SPEED = 1.5
 BIG_ENEMY_RADIUS = 15
-ENEMY_IMAGE_1 = "Space-Invaders/images/enemy.png"
-ENEMY_IMAGE_2 = "Space-Invaders/images/enemy2.png"
+ENEMY_IMAGE_1 = ROOT + "/images/enemy.png"
+ENEMY_IMAGE_2 = ROOT + "/images/enemy2.png"
 
 MEDIUM_ENEMY_SPIN = -2
 MEDIUM_ENEMY_RADIUS = 5
@@ -155,7 +152,7 @@ class Experience(MovingActor):
         self.rotateSpeed = 0
         self.radius = MEDIUM_ENEMY_RADIUS
         self.radius = BIG_ENEMY_RADIUS
-        self.image = "Space-Invaders/images/xp.png"
+        self.image = ROOT + "/images/xp.png"
         self.texture = arcade.load_texture(self.image)
         self.sound = arcade.Sound(PICKUP_SOUND)
         self.size = 2
@@ -191,7 +188,7 @@ class SpaceShip(MovingActor):
         self.radius = SHIP_RADIUS
         self.lives = SHIP_LIVES
         self.points = START_POINTS
-        self.image = "Space-Invaders/images/playerShip.png"
+        self.image = ROOT + "/images/playerShip.png"
         self.texture = arcade.load_texture(self.image)
 
     def draw(self):
@@ -213,7 +210,7 @@ class SpaceShip(MovingActor):
         self.center.y -= self.moveSpeed/2 
      
     def death(self):
-        self.image = "Space-Invaders/images/playerShip.png"
+        self.image = ROOT + "/images/playerShip.png"
         self.texture = arcade.load_texture(self.image)
 
     def is_off_screen(self, SCREEN_WIDTH, SCREEN_HEIGHT):
@@ -242,7 +239,7 @@ class Bullet(MovingActor):
         self.radius = BULLET_RADIUS
         self.rotateSpeed = SHIP_SPEED
         self.angle = BIG_ENEMY_SPIN
-        self.image = "Space-Invaders/images/laser.png"
+        self.image = ROOT + "/images/laser.png"
         self.sound = arcade.Sound(LASER_SOUND)
         self.texture = arcade.load_texture(self.image)
         self.alive = True
