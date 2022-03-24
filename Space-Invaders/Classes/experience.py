@@ -3,6 +3,7 @@ from constants import *
 from Classes.moving_actor import MovingActor
 import math, arcade
 
+
 """
 Experience
 """
@@ -11,8 +12,8 @@ class Experience(MovingActor):
         super().__init__()
         self.center.x = x
         self.center.y = y
-        self.velocity.dx = math.sin(WINDOW.ship.center.x/self.center.x)
-        self.velocity.dy = math.sin(WINDOW.ship.center.y/self.center.y)
+        self.velocity.dx = 0
+        self.velocity.dy = 0
         self.angle = MEDIUM_ENEMY_SPIN
         self.rotateSpeed = 0
         self.radius = MEDIUM_ENEMY_RADIUS
@@ -22,9 +23,9 @@ class Experience(MovingActor):
         self.sound = arcade.Sound(PICKUP_SOUND)
         self.size = 2
         self.alive = True
-    def advance(self):
-        self.center.x += -3 * ((self.center.x - WINDOW.ship.center.x)/(SCREEN_WIDTH/2)) 
-        self.center.y += -3 * ((self.center.y - WINDOW.ship.center.y)/WINDOW.ship.center.y) 
+    def advance(self, shipx, shipy):
+        self.center.x += -3 * ((self.center.x - shipx)/(SCREEN_WIDTH/2)) 
+        self.center.y += -3 * ((self.center.y - shipy)/shipy) 
 
         #self.center.x += -1 * (self.center.x/WINDOW.ship.center.x) 
         #self.center.y += -1 * (self.center.y/WINDOW.ship.center.y)     

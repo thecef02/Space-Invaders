@@ -4,6 +4,7 @@ from Classes.enemy import Enemy
 from Classes.enemy2 import Enemy2
 from Classes.bullet import Bullet
 
+
 class Game(arcade.Window):
     """
     This class handles all the game callbacks and interaction
@@ -90,7 +91,7 @@ class Game(arcade.Window):
             enemy.advance()
 
         for experience in self.experience:
-            experience.advance()
+            experience.advance(self.ship.center.x, self.ship.center.y)
         
         
             self.ship.advance()
@@ -184,7 +185,7 @@ class Game(arcade.Window):
                     if (abs(bullet.center.x - enemy.center.x) < too_close and
                                 abs(bullet.center.y - enemy.center.y) < too_close):
                         bullet.alive = False
-                        enemy.split()
+                        enemy.split(self.experience)
                         
         for enemy in self.enemies:
             

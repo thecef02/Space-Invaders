@@ -4,7 +4,7 @@ import os,sys, arcade, random, math
 from arcade.color import BLUE, RED
 
 
-WINDOW = ""
+
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 900

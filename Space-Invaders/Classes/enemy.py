@@ -4,6 +4,8 @@ import random, arcade
 from Classes.experience import Experience
 
 
+
+
 """
 Creates enemy class, which will be the base for all asteroids
 currently set up as the large asteroid
@@ -29,10 +31,10 @@ class Enemy(MovingActor):
 
 
 
-    def split(self):
+    def split(self, experienceList):
         self.alive = False
         xp1 = Experience(self.center.x, self.center.y)
         #smallEnemy1 = SmallEnemy(self.center.x, self.center.y)
         self.sound.play(0.5, 1)
-        WINDOW.experience.append(xp1)
+        experienceList.append(xp1)
         #WINDOW.enemies.append(smallEnemy1)
