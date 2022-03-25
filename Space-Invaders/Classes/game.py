@@ -1,6 +1,7 @@
 from constants import *
 from Classes.spaceship import SpaceShip
 from Classes.enemy import Enemy
+from Classes.wave_handler import WaveHandler
 from Classes.enemy2 import Enemy2
 from Classes.bullet import Bullet
 
@@ -28,6 +29,10 @@ class Game(arcade.Window):
         self.enemies = []
         self.experience = []
         self.enemyMax = ENEMY_AMOUNT
+        self.wave = WaveHandler()
+        self.wave.nextWave(LEVEL_1)
+        
+       
 
         #Looking into animation
         #self.player_list = arcade.SpriteList()
@@ -36,7 +41,7 @@ class Game(arcade.Window):
         #self.player_sprite.center_y = 50
         #self.player_list.append(self.player_sprite)
 
-        
+        self.create_enemy()
         arcade.Sound(START_SOUND).play(0.5, 0)
         arcade.Sound(MUSIC).play(.5, 0, True)
 
@@ -66,6 +71,7 @@ class Game(arcade.Window):
 
         self.draw_lives()
         self.draw_points()
+        self.draw_wave()
 
         if self.ship.alive == False:
             self.game_over()
@@ -79,7 +85,8 @@ class Game(arcade.Window):
         self.check_collisions()
         self.check_off_screen()
         self.cleanup()
-        self.create_enemy()
+        self.check_wave_remainder()
+        
         
         
         # TODO: Tell everything to advance or move forward one step in time
@@ -111,6 +118,12 @@ class Game(arcade.Window):
         points_x = SCREEN_WIDTH - 200
         points_y = SCREEN_HEIGHT - 40
         arcade.draw_text(points_text, start_x=points_x, start_y=points_y, font_size=30, color=arcade.color.WHITE)
+
+    def draw_wave(self):
+        draw_text = self.wave.name
+        draw_x = SCREEN_WIDTH/2 - 50
+        draw_y = SCREEN_HEIGHT - 90
+        arcade.draw_text(draw_text, start_x=draw_x, start_y=draw_y, font_size=20, color=arcade.color.WHITE)
 
     def game_over(self):
         """
@@ -167,6 +180,7 @@ class Game(arcade.Window):
             experience.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
             
         self.ship.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT)
+
 
 
     def check_collisions(self):
@@ -237,13 +251,26 @@ class Game(arcade.Window):
 
     def create_enemy(self):
        
-        while len(self.enemies) < self.enemyMax:
-            x = random.randint(1, 2)
-            if x == 1:      
+        for enemies in self.wave.currentWave:
+            if enemies == "A":
                 enemy = Enemy()
-            else:
+                self.enemies.append(enemy)
+            elif enemies == "B":
                 enemy = Enemy2()
-            self.enemies.append(enemy)
+                self.enemies.append(enemy)
+            else:
+                print(enemies)
+
+    def check_wave_remainder(self):
+
+        if len(self.enemies) == 0:
+            self.wave.nextWave(self.wave.next)
+            self.create_enemy()     
+    
+        
+
+       
+        
         
 
     def on_key_press(self, key: int, modifiers: int):
