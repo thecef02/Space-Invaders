@@ -5,7 +5,7 @@ import arcade, math
 
 class Bullet(MovingActor):
     """ This will display for bullets.
-    
+
     Attributes:
     center.y (float)
     center.x (float)
@@ -36,6 +36,11 @@ class Bullet(MovingActor):
         self.texture = arcade.load_texture(self.image)
         self.alive = True
         self.time = 0
+        super().advance()
+        self.time += 1
+        if self.time >= BULLET_LIFE:
+            self.alive = False
+
 
     def draw(self):
         """
@@ -56,17 +61,6 @@ class Bullet(MovingActor):
         self.velocity.dy = math.sin(math.radians(self.angle)) * (dy + BULLET_SPEED)
         self.velocity.dx = math.cos(math.radians(self.angle)) * (dx + BULLET_SPEED)
         self.sound.play(0.2, 0)
-        
-    def advance(self):
-        """
-        Appending velocity and time for bullets
-        Args:
-        """
-        self.center.y += self.velocity.dy
-        self.center.x += self.velocity.dx
-        self.time += 1
-        if self.time >= BULLET_LIFE:
-            self.alive = False
 
     def is_off_screen(self, SCREEN_WIDTH, SCREEN_HEIGHT):
         """

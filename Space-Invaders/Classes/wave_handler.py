@@ -1,5 +1,4 @@
 from Classes.enemy import Enemy
-from Classes.enemy2 import Enemy2
 
 class WaveHandler():
     def __init__(self):
