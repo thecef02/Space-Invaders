@@ -1,5 +1,5 @@
 # Space Invaders
-explanation of the game
+Use your left and right arrow keey to move your spaceship! By pressing space bar, shoot the pullets and kill the space invaders!
 
 ## Getting Started
 ---

@@ -3,7 +3,6 @@ from constants import *
 from Classes.moving_actor import MovingActor
 import math, arcade
 
-
 """
 Experience
 """

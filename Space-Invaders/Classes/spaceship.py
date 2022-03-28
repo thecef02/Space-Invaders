@@ -8,7 +8,7 @@ class SpaceShip(MovingActor):
     def __init__(self):
         super().__init__()
         print(SCREEN_HEIGHT)
-        self.center.y = SCREEN_HEIGHT/15
+        self.center.y = SCREEN_HEIGHT/15 + 60
         self.center.x = SCREEN_WIDTH/2
         self.angle = 0
         self.accelerate = SHIP_THRUST_AMOUNT

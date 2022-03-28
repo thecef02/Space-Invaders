@@ -45,8 +45,6 @@ class Enemy(MovingActor):
     def draw(self):
         arcade.draw_texture_rectangle(self.center.x, self.center.y, self.texture.width/2, self.texture.height/2, self.texture, self.angle, 255)
 
-
-
     def split(self, experienceList):
         self.alive = False
         xp1 = Experience(self.center.x, self.center.y)
