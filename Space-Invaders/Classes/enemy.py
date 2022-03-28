@@ -4,14 +4,14 @@ import random, arcade
 from Classes.experience import Experience
 
 
-
-
 """
 Creates enemy class, which will be the base for all asteroids
 currently set up as the large asteroid
+2nd arg is optional. If it not given, it is 1.
 """
+
 class Enemy(MovingActor):
-    def __init__(self):
+    def __init__(self, type = 1):
         super().__init__()
         self.center.x = random.randint(1, SCREEN_WIDTH)
         self.center.y = SCREEN_HEIGHT
@@ -25,6 +25,11 @@ class Enemy(MovingActor):
         self.image = ENEMY_IMAGE_1
         self.texture = arcade.load_texture(self.image)
         self.sound = arcade.Sound(EXPLOSION_SOUND)
+        if type == 2:
+            self.velocity.dx = random.uniform(-6 * BIG_ENEMY_SPEED, 6* BIG_ENEMY_SPEED)
+            self.velocity.dy = random.uniform(-1.5 * BIG_ENEMY_SPEED, -3 * BIG_ENEMY_SPEED)
+            self.image = ENEMY_IMAGE_2
+            self.texture = arcade.load_texture(self.image)
         
     def draw(self):
         arcade.draw_texture_rectangle(self.center.x, self.center.y, self.texture.width/2, self.texture.height/2, self.texture, self.angle, 255)

@@ -4,6 +4,7 @@ from Classes.enemy import Enemy
 from Classes.wave_handler import WaveHandler
 from Classes.enemy2 import Enemy2
 from Classes.bullet import Bullet
+import os
 
 
 class Game(arcade.Window):
@@ -21,7 +22,7 @@ class Game(arcade.Window):
         :param height: Screen height
         """
         super().__init__(width, height)
-        self.background = arcade.load_texture("images/background.jpg")
+        self.background = arcade.load_texture(os.getcwd() + '/Space-Invaders/images/background.jpg')
 
         self.held_keys = set()
         self.ship = SpaceShip()
@@ -257,7 +258,7 @@ class Game(arcade.Window):
                 enemy = Enemy()
                 self.enemies.append(enemy)
             elif enemies == "B":
-                enemy = Enemy2()
+                enemy = Enemy(type = 2)
                 self.enemies.append(enemy)
             else:
                 print(enemies)
