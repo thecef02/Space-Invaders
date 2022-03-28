@@ -36,7 +36,7 @@ SPACE-INVADERS  (project root folder)
 * Packages in the requirements.txt
 
 ## Authors
-* Mallory Lee : 
+* Mallory Lee : Used maintainability on Enemy class by making setup functions. Created README file. Cleaned up the code.
 * Cristian Fernandez : 
 * Zachary Thompson : 
 * Nathanael Budge : 
