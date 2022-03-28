@@ -21,7 +21,7 @@ class Game(arcade.Window):
         :param height: Screen height
         """
         super().__init__(width, height)
-        arcade.set_background_color(arcade.color.SMOKY_BLACK)
+        self.background = arcade.load_texture("images/background.jpg")
 
         self.held_keys = set()
         self.ship = SpaceShip()
@@ -57,6 +57,7 @@ class Game(arcade.Window):
 
         # clear the screen to begin drawing
         arcade.start_render()
+        arcade.draw_lrwh_rectangle_textured(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, self.background)
         self.ship.draw()
 
         # TODO: draw each object
