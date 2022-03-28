@@ -15,7 +15,16 @@ The project files and folders are organized as follows:
 ```
 SPACE-INVADERS  (project root folder)
 +--classes              (source classes for game)
-  +-- 
+  +-- Bullete.py  
+  +-- enemy.py
+  +-- enemy2.py
+  +-- experience.py
+  +-- game.py
+  +-- moving_actor.py
+  +-- point.py
+  +-- spaceship.py
+  +-- velocity.py
+  +-- wave_handler.py
   +-- __main__.py         (main file to run the game)
 +-- requirements.txt    (download requirements)
 +-- README.md           (general info)

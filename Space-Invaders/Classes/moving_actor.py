@@ -2,13 +2,20 @@ from abc import ABC
 from Classes.point import Point
 from Classes.velocity import Velocity
 from constants import *
-"""
-Creates Abstract Flying object class, used to help define other classes
-"""     
-class MovingActor(ABC):
 
+class MovingActor(ABC):
+    """ Creates Abstract Flying object class, used to help define other classes
+
+    Attributes:
+    center (float) : Location of moving object
+    velocity (float) : Velocity of moving object
+    """
     
     def __init__(self):
+        """
+        Consturctor of MovingActor
+        Args:
+        """
         self.center = Point()
         self.velocity = Velocity()
         
