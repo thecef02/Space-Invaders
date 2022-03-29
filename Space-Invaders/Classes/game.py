@@ -109,11 +109,15 @@ class Game(arcade.Window):
         """
         Puts the current score on the screen
         """
-        lives_text = "Life: {}".format(self.ship.lives)
+        lives = self.ship.lives
+        lives_text = "Life: {}".format(lives)
         lives_x = 80
         lives_y = SCREEN_HEIGHT - 50
-        arcade.draw_text(lives_text, start_x=lives_x, start_y=lives_y, font_size=30, color=arcade.color.WHITE, font_name="Kenney Pixel")
-    
+        if lives >= 1:
+            arcade.draw_text(lives_text, start_x=lives_x, start_y=lives_y, font_size=30, color=arcade.color.WHITE, font_name="Kenney Pixel")
+        else:
+            arcade.draw_text("Life: 0", start_x=lives_x, start_y=lives_y, font_size=30, color=arcade.color.WHITE, font_name="Kenney Pixel")
+
     def draw_points(self):
         points_text = "Points: {}".format(self.ship.points)
         points_x = SCREEN_WIDTH - 170
