@@ -110,30 +110,30 @@ class Game(arcade.Window):
         Puts the current score on the screen
         """
         lives_text = "Life: {}".format(self.ship.lives)
-        lives_x = 10
-        lives_y = SCREEN_HEIGHT - 40
-        arcade.draw_text(lives_text, start_x=lives_x, start_y=lives_y, font_size=30, color=arcade.color.WHITE)
+        lives_x = 80
+        lives_y = SCREEN_HEIGHT - 50
+        arcade.draw_text(lives_text, start_x=lives_x, start_y=lives_y, font_size=30, color=arcade.color.WHITE, font_name="Kenney Pixel")
     
     def draw_points(self):
         points_text = "Points: {}".format(self.ship.points)
-        points_x = SCREEN_WIDTH - 200
-        points_y = SCREEN_HEIGHT - 40
-        arcade.draw_text(points_text, start_x=points_x, start_y=points_y, font_size=30, color=arcade.color.WHITE)
+        points_x = SCREEN_WIDTH - 170
+        points_y = SCREEN_HEIGHT - 50
+        arcade.draw_text(points_text, start_x=points_x, start_y=points_y, font_size=30, color=arcade.color.WHITE, font_name="Kenney Pixel")
 
     def draw_wave(self):
         draw_text = self.wave.name
-        draw_x = SCREEN_WIDTH/2 - 50
-        draw_y = SCREEN_HEIGHT - 90
-        arcade.draw_text(draw_text, start_x=draw_x, start_y=draw_y, font_size=20, color=arcade.color.WHITE)
+        draw_x = SCREEN_WIDTH/2 - 70
+        draw_y = SCREEN_HEIGHT - 50
+        arcade.draw_text(draw_text, start_x=draw_x, start_y=draw_y, font_size=25, color=arcade.color.WHITE, font_name="Kenney Blocks")
 
     def game_over(self):
         """
         Puts the current score on the screen
         """
         gameOver_text = "Game Over"
-        gameOver_x = SCREEN_WIDTH/2 - 220
+        gameOver_x = SCREEN_WIDTH/2 - 250
         gameOver_y = SCREEN_HEIGHT/2
-        arcade.draw_text(gameOver_text, start_x=gameOver_x, start_y=gameOver_y, font_size=60, color=arcade.color.WHITE)
+        arcade.draw_text(gameOver_text, start_x=gameOver_x, start_y=gameOver_y, font_size=60, color=arcade.color.WHITE, font_name="Kenney Blocks")
 
     def check_keys(self):
         """

@@ -48,7 +48,6 @@ class Enemy(MovingActor):
     def split(self, experienceList):
         self.alive = False
         xp1 = Experience(self.center.x, self.center.y)
-        #smallEnemy1 = SmallEnemy(self.center.x, self.center.y)
         self.sound.play(0.5, 1)
         experienceList.append(xp1)
-        #WINDOW.enemies.append(smallEnemy1)
+        
