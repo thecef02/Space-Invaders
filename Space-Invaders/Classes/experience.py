@@ -13,10 +13,9 @@ class Experience(MovingActor):
         self.center.y = y
         self.velocity.dx = 0
         self.velocity.dy = 0
-        self.angle = MEDIUM_ENEMY_SPIN
+        self.angle = EXPERIENCE_SPIN
         self.rotateSpeed = 0
-        self.radius = MEDIUM_ENEMY_RADIUS
-        self.radius = BIG_ENEMY_RADIUS
+        self.radius = EXPERIENCE_RADIUS
         self.image = ROOT + "/images/xp.png"
         self.texture = arcade.load_texture(self.image)
         self.sound = arcade.Sound(PICKUP_SOUND)

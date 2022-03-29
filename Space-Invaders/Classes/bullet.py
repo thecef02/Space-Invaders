@@ -29,8 +29,7 @@ class Bullet(MovingActor):
         self.center.y = y
         self.center.x = x
         self.radius = BULLET_RADIUS
-        self.rotateSpeed = SHIP_SPEED
-        self.angle = BIG_ENEMY_SPIN
+        self.angle = BULLET_SPIN
         self.image = ROOT + "/images/laser.png"
         self.sound = arcade.Sound(LASER_SOUND)
         self.texture = arcade.load_texture(self.image)

@@ -22,11 +22,11 @@ class Enemy(MovingActor):
     def base_setup(self):
         self.center.x = random.randint(1, SCREEN_WIDTH)
         self.center.y = SCREEN_HEIGHT
-        self.velocity.dx = random.uniform(-1 * BIG_ENEMY_SPEED, BIG_ENEMY_SPEED)
-        self.velocity.dy = random.uniform(-1 * BIG_ENEMY_SPEED, -2 * BIG_ENEMY_SPEED)
-        self.angle = BIG_ENEMY_SPIN
-        self.rotateSpeed = BIG_ENEMY_SPIN
-        self.radius = BIG_ENEMY_RADIUS
+        self.velocity.dx = random.uniform(-1 * ENEMY_SPEED, ENEMY_SPEED)
+        self.velocity.dy = random.uniform(-1 * ENEMY_SPEED, -2 * ENEMY_SPEED)
+        self.angle = ENEMY_SPIN
+        self.rotateSpeed = ENEMY_SPIN
+        self.radius = ENEMY_RADIUS
         self.alive = True
         self.size = 3
         self.image = ENEMY_IMAGE_1
@@ -37,8 +37,8 @@ class Enemy(MovingActor):
         pass
 
     def type2_setup(self):
-        self.velocity.dx = random.uniform(-6 * BIG_ENEMY_SPEED, 6* BIG_ENEMY_SPEED)
-        self.velocity.dy = random.uniform(-1.5 * BIG_ENEMY_SPEED, -3 * BIG_ENEMY_SPEED)
+        self.velocity.dx = random.uniform(-6 * ENEMY_SPEED, 6* ENEMY_SPEED)
+        self.velocity.dy = random.uniform(-1.5 * ENEMY_SPEED, -3 * ENEMY_SPEED)
         self.image = ENEMY_IMAGE_2
         self.texture = arcade.load_texture(self.image)
 
