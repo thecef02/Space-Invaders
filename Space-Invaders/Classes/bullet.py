@@ -4,26 +4,25 @@ from constants import *
 import arcade, math
 
 class Bullet(MovingActor):
-    """ This will display for bullets.
+    """ This will display bullets.
 
     Attributes:
-    center.y (float)
-    center.x (float)
-    radius (float)
-    rotateSpeed 
-    angle
-    image
-    sound
-    texture
-    alive
-    time
+    center.y (float) : y value for the bullte
+    center.x (float) : x value for the bullet
+    radius (float) : radius of the bullet
+    angle (int) : angle of the bullet
+    image (png) : image of the bullet
+    sound (arcade) : sound when bullet is fired
+    texture (arcade) : loading image of bullet
+    alive (boolean) : if game end, bullet isn't alive
+    time (int) : time for alive
     """
     def __init__(self, x, y):
         """
         constructs Bullet
         Args:
-            center.y(): 
-            center.x(): 
+            center.y(int): bullet position in y
+            center.x(int): bullet position in x
         """
         super().__init__()
         self.center.y = y
