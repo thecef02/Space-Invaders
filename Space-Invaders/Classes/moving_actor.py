@@ -20,6 +20,10 @@ class MovingActor(ABC):
         self.velocity = Velocity()
         
     def advance(self):
+        """
+        Move the actor to a dx, dy pixels
+
+        """
         self.center.y += self.velocity.dy
         self.center.x += self.velocity.dx
 
@@ -27,9 +31,12 @@ class MovingActor(ABC):
         return
 
     def is_off_screen(self, SCREEN_WIDTH, SCREEN_HEIGHT):
-        is_off_screen = False
         
-        #Creates Screen Wrapping effect
+        is_off_screen = False
+        """Creates Screen Wrapping effect so the actor can be visible coming from
+        the other side of the screen.
+
+        """
         if self.center.x > SCREEN_WIDTH:
             self.center.x = 0
         elif self.center.x < 0:
