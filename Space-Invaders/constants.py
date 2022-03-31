@@ -30,6 +30,7 @@ SHIP_THRUST_AMOUNT = 0.25/25
 SHIP_RADIUS = 30
 SHIP_LIVES = 1
 SHIP_SCALE = .8
+
 START_POINTS = 0
 
 ROOT = os.path.dirname(sys.modules['__main__'].__file__)
@@ -39,6 +40,9 @@ START_SOUND = ROOT + "/sounds/start.wav"
 HURT_SOUND = ROOT + "/sounds/hitHurt.wav"
 PICKUP_SOUND = ROOT + "/sounds/pickup.wav"
 MUSIC = ROOT + "/sounds/ai_song.wav"
+
+SHIP_IMAGE = ROOT + "/images/playerShip.png"
+EXPLOSION_IMAGE = ROOT + "/images/explosion.png"
 
 INITIAL_ENEMY_COUNT = 10
 
