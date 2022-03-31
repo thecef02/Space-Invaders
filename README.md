@@ -37,6 +37,6 @@ SPACE-INVADERS  (project root folder)
 ## Authors
 * Mallory Lee : Used maintainability on Enemy class by making setup functions. Created README file. Cleaned up the code.
 * Cristian Fernandez : 
-* Zachary Thompson : 
+* Zachary Thompson :  Created all the classes, got it up and running, sourced all the sounds and  drew all the images (excluding the background image), created the wave system, created all of the constants. Created documentation for spaceship and wave_handler.
 * Nathanael Budge : 
 * Oliverio Forentino Cameron Muñoz : 
