@@ -39,4 +39,4 @@ SPACE-INVADERS  (project root folder)
 * Cristian Fernandez : 
 * Zachary Thompson :  Created all the classes, got it up and running, sourced all the sounds and  drew all the images (excluding the background image), created the wave system, created all of the constants. Created documentation for spaceship and wave_handler.
 * Nathanael Budge : 
-* Oliverio Forentino Cameron Muñoz : 
+* Oliverio Forentino Cameron Muñoz : Clean the game.py and make docstrings for game.py
