@@ -11,14 +11,25 @@ class Game(arcade.Window):
     This class handles all the game callbacks and interaction
     This class will then call the appropriate functions of
     each of the above classes.
-    You are welcome to modify anything in this class.
+
+    Atributtes:
+    backgrounds (arcade): set the texture of the background of screen.
+    held_keys (arcade): keys that are being held down
+    ship: The ship of our responsability
+    bullets (list): Quantity of bullets 
+    enemies (list): All the asteroids who came to attack us
+    experience (list): Number of rounds runs
+    enemyMax (int): The amount of the enemies
+    wave (list): the level of enemies .
+
     """
 
     def __init__(self, width, height):
         """
         Sets up the initial conditions of the game
-        :param width: Screen width
-        :param height: Screen height
+        Args:
+            width: Screen width
+            height: Screen height
         """
         super().__init__(width, height)
         self.background = arcade.load_texture(ROOT +'/images/background.jpg')
@@ -53,6 +64,8 @@ class Game(arcade.Window):
         """
         Called automatically by the arcade framework.
         Handles the responsibility of drawing all elements.
+        Args:
+            none
         """
 
         # clear the screen to begin drawing
@@ -79,8 +92,9 @@ class Game(arcade.Window):
 
     def update(self, delta_time):
         """
-        Update each object in the game.
-        :param delta_time: tells us how much time has actually elapsed
+        This function update each object in the game.
+        Args:
+            delta_time: tells us how much time has actually elapsed
         """
         self.check_keys()
         self.check_collisions()
@@ -105,9 +119,12 @@ class Game(arcade.Window):
             self.ship.advance()
 
         # TODO: Check for collisions
+
     def draw_lives(self):
         """
-        Puts the current score on the screen
+        This function puts the current lifes on the screen
+        Args:
+            none
         """
         lives = self.ship.lives
         lives_text = "Life: {}".format(lives)
@@ -119,12 +136,22 @@ class Game(arcade.Window):
             arcade.draw_text("Life: 0", start_x=lives_x, start_y=lives_y, font_size=30, color=arcade.color.WHITE, font_name="Kenney Pixel")
 
     def draw_points(self):
+        """
+        This function puts the current score on the screen
+        Args:
+            none
+        """
         points_text = "Points: {}".format(self.ship.points)
         points_x = SCREEN_WIDTH - 170
         points_y = SCREEN_HEIGHT - 50
         arcade.draw_text(points_text, start_x=points_x, start_y=points_y, font_size=30, color=arcade.color.WHITE, font_name="Kenney Pixel")
 
     def draw_wave(self):
+        """
+        This function puts the current waves on the screen
+        Args:
+            none
+        """
         draw_text = self.wave.name
         draw_x = SCREEN_WIDTH/2 - 70
         draw_y = SCREEN_HEIGHT - 50
@@ -132,7 +159,9 @@ class Game(arcade.Window):
 
     def game_over(self):
         """
-        Puts the current score on the screen
+        This function finish the game, with a message on the screen.
+        Args:
+            none
         """
         gameOver_text = "Game Over"
         gameOver_x = SCREEN_WIDTH/2 - 250
@@ -142,16 +171,15 @@ class Game(arcade.Window):
     def check_keys(self):
         """
         This function checks for keys that are being held down.
-        You will need to put your own method calls in here.
+        Args:
+            none
         """
         if arcade.key.LEFT in self.held_keys or arcade.key.A in self.held_keys:
-            self.ship.goLeft()
-            
+            self.ship.goLeft()         
 
         if arcade.key.RIGHT in self.held_keys or arcade.key.D in self.held_keys:
             self.ship.goRight()
             
-
         if arcade.key.UP in self.held_keys or arcade.key.W in self.held_keys:
             self.ship.goForward()
 
@@ -162,17 +190,12 @@ class Game(arcade.Window):
         
 
 
-        
-        
-
-        # Machine gun mode...
-        #if arcade.key.SPACE in self.held_keys:
-        #    pass
-
     def check_off_screen(self):
         """
         Checks to see if bullets or targets have left the screen
         and if so wraps them around
+        Args: 
+            none
         """
         for bullet in self.bullets:
             if bullet.is_off_screen(SCREEN_WIDTH, SCREEN_HEIGHT):
@@ -190,10 +213,10 @@ class Game(arcade.Window):
 
     def check_collisions(self):
         """
-        Checks Collisions
-        """
-
-       
+        This function checks Collisions and then remove the dead objects
+        Args:
+            none
+        """    
         for bullet in self.bullets:
             for enemy in self.enemies:
 
@@ -240,6 +263,11 @@ class Game(arcade.Window):
 
                 
     def cleanup(self):
+        """
+        This function Clean up the bullet or targets.
+        Args:
+            none
+        """
         for bullet in self.bullets:
             if bullet.alive == False:
                 self.bullets.remove(bullet)
@@ -253,9 +281,12 @@ class Game(arcade.Window):
             self.ship.death()
       
                 
-
     def create_enemy(self):
-       
+        """
+        Create a new enemy
+        Args:
+            none
+        """       
         for enemies in self.wave.currentWave:
             if enemies == "A":
                 self.enemies.append(Enemy())
@@ -265,21 +296,23 @@ class Game(arcade.Window):
                 print(enemies)
 
     def check_wave_remainder(self):
-
+        """
+        This function check Wave remainder and create new enemy
+        Args:
+            none
+        """
         if len(self.enemies) == 0:
             self.wave.nextWave(self.wave.next)
             self.create_enemy()     
     
-        
-
-       
-        
-        
+           
 
     def on_key_press(self, key: int, modifiers: int):
         """
         Puts the current key in the set of keys that are being held.
         You will need to add things here to handle firing the bullet.
+        Args:
+            key: key that is held.
         """
         if self.ship.alive == True:
             self.held_keys.add(key)
@@ -309,7 +342,9 @@ class Game(arcade.Window):
 
     def on_key_release(self, key: int, modifiers: int):
         """
-        Removes the current key from the set of held keys.
+        This function removes the current key from the set of held keys.
+        Args:
+            key: key that the user can held.
         """
         if key in self.held_keys:
             self.held_keys.remove(key)
