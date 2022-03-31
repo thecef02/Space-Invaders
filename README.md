@@ -38,5 +38,5 @@ SPACE-INVADERS  (project root folder)
 * Mallory Lee : Used maintainability on Enemy class by making setup functions. Created README file. Cleaned up the code.
 * Cristian Fernandez : 
 * Zachary Thompson :  Created all the classes, got it up and running, sourced all the sounds and  drew all the images (excluding the background image), created the wave system, created all of the constants. Created documentation for spaceship and wave_handler.
-* Nathanael Budge : 
+* Nathanael Budge : Added background and fixed lives counter. Cleaned up code.
 * Oliverio Forentino Cameron Muñoz : Clean the game.py and make docstrings for game.py
