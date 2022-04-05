@@ -74,6 +74,8 @@ class Bullet(MovingActor):
             self.center.x = 0
         elif self.center.x < 0:
             self.center.x = SCREEN_WIDTH
+        elif self.center.y > SCREEN_HEIGHT:
+            is_off_screen = True
         return is_off_screen
    
         

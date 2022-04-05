@@ -74,12 +74,13 @@ class Game(arcade.Window):
         self.ship.draw()
 
         # TODO: draw each object
+        # print(f"Drawing {len(self.bullets)} bullets, {len(self.enemies)} enemies, {len(self.experience)} experiences")
         for bullet in self.bullets:
             bullet.draw()
-
+        
         for enemy in self.enemies:
             enemy.draw()
-
+        
         for experience in self.experience:
             experience.draw()
 
@@ -105,6 +106,7 @@ class Game(arcade.Window):
         
         
         # TODO: Tell everything to advance or move forward one step in time
+        # print(f"Advancing {len(self.bullets)} bullets, {len(self.enemies)} enemies, {len(self.experience)} experiences")
         for bullet in self.bullets:
             bullet.advance()
             
@@ -220,12 +222,10 @@ class Game(arcade.Window):
         for bullet in self.bullets:
             for enemy in self.enemies:
 
-               
                 if bullet.alive and enemy.alive:
                     too_close = bullet.radius + enemy.radius
-
-                    if (abs(bullet.center.x - enemy.center.x) < too_close and
-                                abs(bullet.center.y - enemy.center.y) < too_close):
+                    # print(too_close)
+                    if (abs(bullet.center.x - enemy.center.x) < too_close and abs(bullet.center.y - enemy.center.y) < too_close):
                         bullet.alive = False
                         enemy.split(self.experience)
                         
@@ -259,6 +259,7 @@ class Game(arcade.Window):
                         # finish going through the list
 
         # Now, check for anything that is dead, and remove it
+        print(f"Totals => B={len(self.bullets)} E={len(self.enemies)} Exp={len(self.experience)}")
         self.cleanup()
 
                 
